@@ -1,13 +1,8 @@
-import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import {
   Avatar,
-  Card,
-  CardContent,
   Chip,
   Container,
   Grid,
@@ -19,46 +14,25 @@ import {
 } from '@mui/material';
 import { profile } from '../data/profile';
 
-const sections = [
-  {
-    icon: <DescriptionRoundedIcon fontSize="small" />,
-    title: 'About',
-    description:
-      'Use this section later for a concise professional summary, strengths, and the types of engineering roles you are targeting.',
-  },
-  {
-    icon: <AutoStoriesRoundedIcon fontSize="small" />,
-    title: 'Writing',
-    description:
-      'Add essays, notes, and posts about your experience as an engineer, interview prep, lessons learned, and the job-search process.',
-  },
-  {
-    icon: <ExploreRoundedIcon fontSize="small" />,
-    title: 'Projects',
-    description:
-      'Highlight selected work, technical decisions, and impact-focused case studies when you are ready to expand the site.',
-  },
-  {
-    icon: <InsightsRoundedIcon fontSize="small" />,
-    title: 'Journey Log',
-    description:
-      'Capture milestones, reflections, and progress from the search without mixing that writing into the operational tracking files.',
-  },
-];
-
 export function HomePage() {
   return (
-    <Container maxWidth="lg" sx={{ pb: 8, pt: 6 }}>
-      <Grid container spacing={3}>
+    <Container maxWidth="lg" sx={{ pb: 10, pt: 8 }}>
+      <Grid
+        container
+        spacing={3}
+        sx={{ alignItems: 'stretch', justifyContent: 'center', minHeight: { md: '70vh' } }}
+      >
         <Grid size={{ md: 8, xs: 12 }}>
           <Paper
             sx={{
               background:
                 'linear-gradient(135deg, rgba(37,99,235,0.12), rgba(124,58,237,0.08))',
-              p: { md: 5, xs: 3 },
+              display: 'flex',
+              height: '100%',
+              p: { md: 6, xs: 3.5 },
             }}
           >
-            <Stack spacing={3}>
+            <Stack spacing={3} sx={{ justifyContent: 'center' }}>
               <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
                 <Avatar
                   sx={{
@@ -82,7 +56,7 @@ export function HomePage() {
           </Paper>
         </Grid>
         <Grid size={{ md: 4, xs: 12 }}>
-          <Paper sx={{ display: 'flex', height: '100%', p: 3 }}>
+          <Paper sx={{ display: 'flex', height: '100%', p: 3.5 }}>
             <Stack
               spacing={2.5}
               sx={{ alignItems: 'stretch', flexGrow: 1, height: '100%', justifyContent: 'space-between' }}
@@ -124,6 +98,22 @@ export function HomePage() {
                     </IconButton>
                   </span>
                 </Tooltip>
+                <Tooltip title={profile.resumeUrl ? 'Open resume PDF' : 'Add resume URL in src/data/profile.ts'}>
+                  <span>
+                    <IconButton
+                      color="primary"
+                      component="a"
+                      disabled={!profile.resumeUrl}
+                      href={profile.resumeUrl || undefined}
+                      rel="noreferrer"
+                      size="large"
+                      sx={{ height: 56, width: 56 }}
+                      target="_blank"
+                    >
+                      <PictureAsPdfRoundedIcon />
+                    </IconButton>
+                  </span>
+                </Tooltip>
                 <Tooltip title={profile.githubUrl ? 'Open GitHub' : 'Add GitHub URL in src/data/profile.ts'}>
                   <span>
                     <IconButton
@@ -144,33 +134,6 @@ export function HomePage() {
             </Stack>
           </Paper>
         </Grid>
-      </Grid>
-
-      <Grid aria-label="Main site sections" container spacing={3} sx={{ mt: 1 }}>
-        {sections.map((section) => (
-          <Grid key={section.title} size={{ md: 6, xs: 12 }}>
-            <Card>
-              <CardContent sx={{ p: 3.5 }}>
-                <Stack spacing={2}>
-                  <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
-                    <Avatar
-                      sx={{
-                        bgcolor: 'secondary.main',
-                        color: 'common.white',
-                        height: 36,
-                        width: 36,
-                      }}
-                    >
-                      {section.icon}
-                    </Avatar>
-                    <Typography variant="h5">{section.title}</Typography>
-                  </Stack>
-                  <Typography color="text.secondary">{section.description}</Typography>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
       </Grid>
     </Container>
   );
